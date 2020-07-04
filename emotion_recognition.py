@@ -9,16 +9,9 @@ from keras.losses import categorical_crossentropy
 from keras.optimizers import Adam
 from keras.regularizers import l2
 from keras.utils import np_utils
-# pd.set_option('display.max_rows', 500)
-# pd.set_option('display.max_columns', 500)
-# pd.set_option('display.width', 1000)
 
 df=pd.read_csv('fer2013.csv')
 
-# print(df.info())
-# print(df["Usage"].value_counts())
-
-# print(df.head())
 X_train,train_y,X_test,test_y=[],[],[],[]
 
 for index, row in df.iterrows():
@@ -49,8 +42,7 @@ test_y = np.array(test_y,'float32')
 train_y=np_utils.to_categorical(train_y, num_classes=num_labels)
 test_y=np_utils.to_categorical(test_y, num_classes=num_labels)
 
-#cannot produce
-#normalizing data between oand 1
+
 X_train -= np.mean(X_train, axis=0)
 X_train /= np.std(X_train, axis=0)
 
@@ -61,9 +53,6 @@ X_train = X_train.reshape(X_train.shape[0], 48, 48, 1)
 
 X_test = X_test.reshape(X_test.shape[0], 48, 48, 1)
 
-# print(f"shape:{X_train.shape}")
-##designing the cnn
-#1st convolution layer
 model = Sequential()
 
 model.add(Conv2D(64, kernel_size=(3, 3), activation='relu', input_shape=(X_train.shape[1:])))
